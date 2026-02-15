@@ -1,0 +1,115 @@
+<div class="container mt-4">
+
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+      <h4>{{ editando ? 'Editar Libro' : 'Nuevo Libro' }}</h4>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row mb-3">
+        <div class="col">
+          <input type="text" class="form-control"
+                 placeholder="Título"
+                 [(ngModel)]="nuevoLibro.Titulo">
+        </div>
+
+        <div class="col">
+          <input type="number" class="form-control"
+                 placeholder="Precio"
+                 [(ngModel)]="nuevoLibro.Precio">
+        </div>
+
+        <div class="col">
+          <input type="number" class="form-control"
+                 placeholder="Stock"
+                 [(ngModel)]="nuevoLibro.Stock">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <select class="form-select"
+                  [(ngModel)]="nuevoLibro.IdAutor">
+            <option value="0">Seleccione Autor</option>
+            <option *ngFor="let autor of autores"
+                    [value]="autor.IdAutor">
+              {{ autor.Nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col">
+          <select class="form-select"
+                  [(ngModel)]="nuevoLibro.IdTipo">
+            <option value="0">Seleccione Tipo</option>
+            <option *ngFor="let tipo of tipos"
+                    [value]="tipo.IdTipo">
+              {{ tipo.NombreTipo }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn btn-success me-2"
+              (click)="guardarLibro()">
+        {{ editando ? 'Actualizar' : 'Guardar' }}
+      </button>
+
+      <button *ngIf="editando"
+              class="btn btn-secondary"
+              (click)="cancelar()">
+        Cancelar
+      </button>
+
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-header bg-dark text-white">
+      <h4>Lista de Libros</h4>
+    </div>
+
+    <div class="card-body">
+
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Autor</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let libro of libros">
+            <td>{{ libro.IdLibro }}</td>
+            <td>{{ libro.Titulo }}</td>
+            <td>{{ libro.Precio }}</td>
+            <td>{{ libro.Stock }}</td>
+            <td>{{ libro.Autor }}</td>
+            <td>{{ libro.TipoLibro }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2"
+                      (click)="editar(libro)">
+                Editar
+              </button>
+
+              <button class="btn btn-danger btn-sm"
+                      (click)="eliminar(libro.IdLibro)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+
+</div>
